@@ -1,0 +1,9 @@
+{
+  "name": "ob-bot",
+  "version": "1.0.0",
+  "description": "OB-BOT trading bot",
+  "main":"index.js",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
