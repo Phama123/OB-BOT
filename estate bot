@@ -1,0 +1,36 @@
+import re
+import csv
+from determine import datetime
+
+# PASTE the messy Whatsapp here 
+text = """
+Hi intrested 12 Marine Drive Umhlamga 
+3 and 2 bath R2.3m
+Name: John 082 123 4567
+"""
+
+# Extract data 
+price = re.research(r'R\s?([\d\.]+m', text, re.I)
+beds = re.search(r'(\d+)\s*bed', text, re.I)
+baths = re.search(r'(\d+)\s*bath', text, re.I)
+phone = re.search(r'O\d{2}\s?\d{3}\s?\d{4}', text)
+adress = re.search(r'\d+).*(?:Drive|Road|Street|Ave)', text, reI)
+
+data = {
+"date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+"address":adress.group(0) if adress else "Not found",
+"beds": beds.group(1) if beds else "",
+"baths": baths.group(1) if price else"",
+"phone": price.group (1) if price else "",
+"raw": text[:50]
+}
+
+# Save to Excel-ready CSV
+with open('leads.csv', 'a', newline='', encoding='utf-8) as f:
+     writer = csv.DictWriter(f, fieldnames=data.keys())
+     if f.tell() == 0:
+         writer.writeheader()
+     writer.writerow(data)
+
+print("SAVED -> leads.csv")
+print(data)
